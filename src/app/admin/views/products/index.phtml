@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- CSS only -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</head>
+
+<body style="text-align:center; margin-top:100px;">
+    <h1 style="margin-bottom:50px;">Add New Product</h1>
+    <form action="/admin/products/add" method="post">
+        <!-- <input type="hidden" name="fields" id="fields" value="1"> -->
+        <p>
+            <label for="name"><b>Product Name:</b></label>
+            <input type="text" name="name" placeholder="Product Name">
+        </p>
+        <p>
+            <label for="categoryname"><b>Category Name:</b></label>
+            <input type="text" name="cname" placeholder="Category Name">
+        </p>
+        <p>
+            <label for="Price"><b>price:</b></label>
+            <input type="text" name="price" placeholder="Price">
+        </p>
+        <p>
+            <label for="stock"><b>Stock:</b></label>
+            <input type="number" name="stock" placeholder="Stock">
+        </p>
+        <div class="wrapper">
+            <div id="options">
+                <label for="label">Add label</label>
+            </div>
+            <div class="control">
+                <a href="#" class="btn btn-dark text-white" id="addfields">+</a>
+                <a href="#" class="btn btn-dark text-white" id="removefields">-</a>
+            </div>
+        </div>
+
+        <div class="">
+            <div id="variations">
+                <label for="label">Add Variations</label>
+            </div>
+            <div class="control">
+                <a href="#" class="btn btn-dark text-white" id="addvariations">+</a>
+                <a href="#" class="btn btn-dark text-white" id="removevariations">-</a>
+            </div>
+        </div>
+
+        <p>
+            <button class="btn btn-primary" type="submit">Add Product</button>
+        </p>
+    </form>
+    </div>
+    <script src="../../../public/assets/add.js"></script>
+</body>
+
+</html>
+<?php
+
+?>

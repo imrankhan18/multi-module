@@ -1,0 +1,55 @@
+<?php
+
+
+// $edit=json_decode(json_encode($edit, true));
+// echo "<pre>";
+// print_r($data['metadata']);
+// die;
+?>
+<form action="/admin/products/update" method="post">
+    <input type="hidden" name="id" value="<?php print_r($edit->_id . ''); ?>">
+    <p>
+        <label for="name">Product Name:</label>
+        <input type="text" name="name" value="<?php print_r($edit->name);  ?>">
+    </p>
+    <label for="stock">Stock:</label>
+    <input type="text" name="stock" value="<?php print_r($edit->stock); ?>">
+    </p>
+    </p>
+    <label for="cnanme">Category:</label>
+    <input type="text" name="cname" value="<?php print_r($edit->category); ?>">
+    </p>
+    </p>
+    <label for="price">Price:</label>
+    <input type="text" name="price" value="<?php print_r($edit->price); ?>">
+    </p>
+    <p>
+        <label for="variations">Metadata</label>
+        <?php foreach ($data as $k => $v) { ?>
+            <input type="text" name="fields[]" value="<?php print_r($k); ?>">
+            <input type="text" name="value[]" value="<?php print_r($v); ?>">
+        <?php } ?>
+    </p>
+    <p>
+        <?php if (isset($var))
+            
+                foreach ($var as $key => $value) {
+
+
+                    foreach ($value as $k => $v) {
+
+
+
+        ?>
+                    <label for="variations">Variations</label>
+                    <input type="text" name="field1[]" value="<?php print_r($key); ?>">
+                  <?php   for ($i = 0; $i < count($value); $i++) { ?>
+                    <input type="text" name="field2[]" value="<?php print_r($k); ?>">
+                    <input type="text" name="field3[]" value="<?php print_r($v); ?>">
+        <?php }
+                }
+            }
+        ?>
+    </p>
+    <button class="btn btn-primary" type="submit">Update</button>
+</form>

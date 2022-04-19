@@ -1,0 +1,140 @@
+<?php
+// $list = $this->mongo->store->products->find();
+
+// echo "<pre>";
+// foreach($list as $v)
+// print_r($v->metadata['sport']);
+// die;
+?>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    .card {
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      max-width: 300px;
+      margin-left: 10px;
+      text-align: center;
+      font-family: arial;
+      margin-top: 10px;
+    }
+
+    .price {
+      color: grey;
+      font-size: 22px;
+    }
+
+    .card button {
+      border: none;
+      outline: 0;
+      padding: 12px;
+      color: white;
+      background-color: #000;
+      text-align: center;
+      cursor: pointer;
+      width: 100%;
+      font-size: 18px;
+    }
+
+    .card button:hover {
+      opacity: 0.7;
+    }
+  </style>
+</head>
+
+<body>
+  <h2 style="text-align:center">Product List</h2>
+  <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Home </a>
+    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="/admin/products/index">Add Products </a>
+    <!-- <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="/orders/">Add Orders </a> -->
+    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="/admin/login">Logout </a>
+
+    <form action="/admin/products/productslist" method="post">
+      <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search" name="search">
+      <div class="navbar-nav">
+
+        <button>Search</button>
+
+      </div>
+    </form>
+  </header>
+
+  <?php print_r($display); ?>
+
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <h1 style="text-align:center">Quick View</h1>
+        <div class="modal-body">
+          <h3 id="product_name"></h3>
+          <h3 id="category"></h3>
+          <h3 id="price"></h3>
+          <h3 id="stock"></h3>
+          <h3 id="additional_fields"></h3>
+          <h3 id="variations"></h3>
+
+
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <script>
+    $(document).ready(function() {
+      $('body').on('click', '.modalBtn', function() {
+
+        var id = $(this).data("id");
+        // console.log(id);
+        $.ajax({
+          'url': 'http://localhost:8080/admin/products/quick',
+          'method': 'POST',
+          'data': {
+            'id': id
+          },
+          datatype: 'JSON'
+        }).done(function(quick) {
+          quickData = $.parseJSON(quick);
+          console.log(quickData);
+          $("#product_name").html('Product Name = ' + quickData.name);
+          $("#category").html('Category = ' + quickData.category);
+          $("#price").html('Price = ' + quickData.price);
+          $("#stock").html('Stock = ' + quickData.stock);
+          var md = '';
+          for ($i in quickData.metadata) {
+            md += `<h3>` + $i + `: ` + quickData.metadata[$i] + ` </h3>`;
+          }
+          $("#additional_fields").html(md);
+          var variations = '';
+          for ($i in quickData.variations) {
+            variations += `<h3>` + $i + `: `
+            for ($j in quickData.variations[$i]) {
+              variations += $j + `=>` + quickData.variations[$i][$j] + ` </h3>`;
+
+            }
+          }
+          $("#variations").html(variations);
+
+        })
+      });
+    });
+  </script>
+</body>
+
+</html>
